@@ -11,7 +11,9 @@ public class Constants {
 
 
     /* Config  network */
-    public static final String BNN_SIZE_NEURON = "bnn.size.neuron";
+    public static final String BNN_SIZE_NEURON_X = "bnn.size.network.x";
+    public static final String BNN_SIZE_NEURON_Y = "bnn.size.network.y";
+    public static final String BNN_SIZE_NEURON_Z = "bnn.size.network.z";
 
     /* Constants - Functions */
     public static final String BNN_CONSTANT_LAMBDA = "bnn.constant.lambda";

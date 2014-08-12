@@ -94,7 +94,7 @@ public class ApplicationHelper {
      */
     public static String getHeader(String lessId) {
 	StringBuilder sb = new StringBuilder();
-	int size = Integer.parseInt(config.getProp().getProperty(Constants.BNN_SIZE_NEURON));
+	int size = getSizeNetwork();
 	int sizeForm = getNullOutput().length(); 
 
 	for (int i = 1; i <= size; i++) {
@@ -166,11 +166,18 @@ public class ApplicationHelper {
      * @param lstNeuronsTmp
      */
     public static void initList(List<Neuron> lstNeuronsTmp) {
-	for (int i = 0; i < 
-		Integer.parseInt(config.getProp().getProperty(Constants.BNN_SIZE_NEURON))
-		; i++) {
+	for (int i = 0; i < getSizeNetwork(); i++) {
 	    lstNeuronsTmp.add( new Neuron());
 	}
+    }
+
+    /**
+     * @return int
+     */
+    public static int getSizeNetwork() {
+	return Integer.parseInt(config.getProp().getProperty(Constants.BNN_SIZE_NEURON_X))
+	* Integer.parseInt(config.getProp().getProperty(Constants.BNN_SIZE_NEURON_Y))
+	* Integer.parseInt(config.getProp().getProperty(Constants.BNN_SIZE_NEURON_Z));
     }
 
     /**

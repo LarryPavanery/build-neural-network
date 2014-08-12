@@ -40,9 +40,7 @@ public class RNN {
 	    for (Neuron subNeuron : lstNeurons) {
 		if (neuron.getNeighbor().isNeighbor(subNeuron)) {
 		    if (network.get(neuron) == null) {
-			lstNeuronsTmp = new ArrayList<Neuron>(
-				Integer.parseInt(config.getProp().getProperty(Constants.BNN_SIZE_NEURON))
-				);
+			lstNeuronsTmp = new ArrayList<Neuron>(ApplicationHelper.getSizeNetwork());
 			ApplicationHelper.initList(lstNeuronsTmp);
 
 			lstNeuronsTmp.set(subNeuron.getIndex(), subNeuron);
@@ -54,9 +52,7 @@ public class RNN {
 		    }
 		} else {
 		    if (network.get(neuron) == null) {
-			lstNeuronsTmp = new ArrayList<Neuron>(
-				Integer.parseInt(config.getProp().getProperty(Constants.BNN_SIZE_NEURON))
-				);
+			lstNeuronsTmp = new ArrayList<Neuron>(ApplicationHelper.getSizeNetwork());
 			ApplicationHelper.initList(lstNeuronsTmp);
 
 			network.put(neuron, lstNeuronsTmp);
@@ -77,25 +73,31 @@ public class RNN {
     public static final List<Neuron> buildNeurons() {
 	List<Neuron> lstNeurons = new ArrayList<Neuron>();
 
-	int distanceX = 1;
-	int distanceY = 1;
-	int distanceZ = 1;
+	int idx = 0;
 	int id = 1;
 
-	for (int idx = 0; 
-		idx < Integer.parseInt(config.getProp().getProperty(Constants.BNN_SIZE_NEURON)); 
-		idx++) {
-	    lstNeurons.add(
-		    new Neuron(
-			    idx,
-			    config.getProp().getProperty(Constants.BNN_COLUMN_NAME_FILE) + id++,
-			    ApplicationHelper.getTipo(), 
-			    new Weight(ApplicationHelper.getRandomWeight()), 
-			    new Distance(distanceX++),
-			    new Distance(distanceY++),
-			    new Distance(distanceZ++)
-			    )
-		    );
+	for (int distanceX = 1; 
+		distanceX <= Integer.parseInt(config.getProp().getProperty(Constants.BNN_SIZE_NEURON_X)); 
+		distanceX++) {
+	    for (int distanceY = 1; 
+		    distanceY <= Integer.parseInt(config.getProp().getProperty(Constants.BNN_SIZE_NEURON_Y)); 
+		    distanceY++) {
+		for (int distanceZ = 1; 
+			distanceZ <= Integer.parseInt(config.getProp().getProperty(Constants.BNN_SIZE_NEURON_Z)); 
+			distanceZ++) {
+		    lstNeurons.add(
+			    new Neuron(
+				    idx++,
+				    config.getProp().getProperty(Constants.BNN_COLUMN_NAME_FILE) + id++,
+				    ApplicationHelper.getTipo(), 
+				    new Weight(ApplicationHelper.getRandomWeight()), 
+				    new Distance(distanceX),
+				    new Distance(distanceY),
+				    new Distance(distanceZ)
+				    )
+			    );
+		}
+	    }
 	}
 	return lstNeurons;
     }
@@ -111,7 +113,7 @@ public class RNN {
 	    pw = new PrintWriter(new File(file));
 
 	    String ouput = buildStringOutputNetwork(); 
-	    
+
 	    pw.write(ouput);
 	    pw.flush();
 
