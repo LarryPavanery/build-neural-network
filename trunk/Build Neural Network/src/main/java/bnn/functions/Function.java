@@ -36,15 +36,16 @@ public class Function {
 
     public static class ConnectionProbability {
 	/**
+	 * P = C.e^-(d/lambda)^2 
 	 * @return probability
 	 */
 	public static double calc(Neuron neuronA, Neuron neuronB) {
 	    
 	    double paramC = Double.parseDouble(config.getProp().getProperty(Constants.BNN_CONSTANT_C));
-	    double paramE = Double.parseDouble(config.getProp().getProperty(Constants.BNN_CONSTANT_E));
 	    double paramLambda = Double.parseDouble(config.getProp().getProperty(Constants.BNN_CONSTANT_LAMBDA));
 	    
-	    double prob = (paramC * paramE - DistanceR3.calc(neuronA, neuronB)) / paramLambda;
+	    double prob = paramC * Math.pow(Math.E, 
+		    -1 * Math.pow(DistanceR3.calc(neuronA, neuronB) / paramLambda, 2.0D));
 	    
 	    return prob;
 	}
