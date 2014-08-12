@@ -89,6 +89,7 @@ public class RNN {
 		    new Neuron(
 			    idx,
 			    config.getProp().getProperty(Constants.BNN_COLUMN_NAME_FILE) + id++,
+			    ApplicationHelper.getTipo(), 
 			    new Weight(ApplicationHelper.getRandomWeight()), 
 			    new Distance(distanceX++),
 			    new Distance(distanceY++),

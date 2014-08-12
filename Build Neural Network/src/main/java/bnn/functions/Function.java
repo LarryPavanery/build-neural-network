@@ -41,7 +41,25 @@ public class Function {
 	 */
 	public static double calc(Neuron neuronA, Neuron neuronB) {
 	    
-	    double paramC = Double.parseDouble(config.getProp().getProperty(Constants.BNN_CONSTANT_C));
+	    double paramC = 0.0D;
+	    
+	    if (Constants.TIPO_E.equalsIgnoreCase(neuronA.getTipo())
+		    && Constants.TIPO_E.equalsIgnoreCase(neuronB.getTipo())) {
+		paramC = Double.parseDouble(config.getProp().getProperty(Constants.BNN_PARAM_EE));
+		
+	    } else if (Constants.TIPO_E.equalsIgnoreCase(neuronA.getTipo())
+		    && Constants.TIPO_I.equalsIgnoreCase(neuronB.getTipo())) {
+		paramC = Double.parseDouble(config.getProp().getProperty(Constants.BNN_PARAM_EI));
+		
+	    } else if (Constants.TIPO_I.equalsIgnoreCase(neuronA.getTipo())
+		    && Constants.TIPO_I.equalsIgnoreCase(neuronB.getTipo())) {
+		paramC = Double.parseDouble(config.getProp().getProperty(Constants.BNN_PARAM_II));
+		
+	    } else if (Constants.TIPO_I.equalsIgnoreCase(neuronA.getTipo())
+		    && Constants.TIPO_E.equalsIgnoreCase(neuronB.getTipo())) {
+		paramC = Double.parseDouble(config.getProp().getProperty(Constants.BNN_PARAM_IE));
+	    }
+
 	    double paramLambda = Double.parseDouble(config.getProp().getProperty(Constants.BNN_CONSTANT_LAMBDA));
 	    
 	    double prob = paramC * Math.pow(Math.E, 

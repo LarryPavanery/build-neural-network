@@ -11,6 +11,10 @@ public class Neuron implements Comparable<Neuron> {
 
     private String id;
     private int index;
+    /**
+     * E - Excitador; I - Inibidor
+     */
+    private String tipo;
     private Weight weight;
     private Distance distanceX;
     private Distance distanceY;
@@ -26,9 +30,10 @@ public class Neuron implements Comparable<Neuron> {
      * @param distanceY
      * @param distanceZ
      */
-    public Neuron(int index, String id, Weight weight, Distance distanceX, Distance distanceY, Distance distanceZ) {
-	this.index = index;
+    public Neuron(int index, String id, String tipo, Weight weight, Distance distanceX, Distance distanceY, Distance distanceZ) {
 	this.id = id;
+	this.index = index;
+	this.tipo = tipo;
 	this.weight = weight;
 	this.distanceX = distanceX;
 	this.distanceY = distanceY;
@@ -138,6 +143,20 @@ public class Neuron implements Comparable<Neuron> {
      */
     public final void setDistanceZ(Distance distanceZ) {
         this.distanceZ = distanceZ;
+    }
+    
+    /**
+     * @return the tipo
+     */
+    public final String getTipo() {
+        return tipo;
+    }
+
+    /**
+     * @param tipo the tipo to set
+     */
+    public final void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     @Override

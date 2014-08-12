@@ -192,4 +192,11 @@ public class ApplicationHelper {
     public static double getRandomRoulette() {
 	return Math.random();
     }
+
+    /**
+     * @return String 
+     */
+    public static String getTipo() {
+	return getRandomRoulette() <= 0.2D ? Constants.TIPO_I : Constants.TIPO_E;
+    }
 }
