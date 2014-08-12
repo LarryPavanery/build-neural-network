@@ -52,6 +52,18 @@ public class RNN {
 			lstNeuronsTmp.set(subNeuron.getIndex(), subNeuron);
 			network.put(neuron, lstNeuronsTmp);
 		    }
+		} else {
+		    if (network.get(neuron) == null) {
+			lstNeuronsTmp = new ArrayList<Neuron>(
+				Integer.parseInt(config.getProp().getProperty(Constants.BNN_SIZE_NEURON))
+				);
+			ApplicationHelper.initList(lstNeuronsTmp);
+
+			network.put(neuron, lstNeuronsTmp);
+		    } else {
+			lstNeuronsTmp = network.get(neuron);
+			network.put(neuron, lstNeuronsTmp);
+		    }
 		}
 	    }
 	}
