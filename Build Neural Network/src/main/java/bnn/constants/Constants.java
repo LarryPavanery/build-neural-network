@@ -11,18 +11,12 @@ public class Constants {
 
 
     /* Config  network */
-    public static final String BNN_ROULETTE = "bnn.roulette";
-    
     public static final String BNN_SIZE_NEURON = "bnn.size.neuron";
 
     /* Constants - Functions */
     public static final String BNN_CONSTANT_C = "bnn.constant.c";
 
-    public static final String BNN_CONSTANT_E = "bnn.constant.e";
-
     public static final String BNN_CONSTANT_LAMBDA = "bnn.constant.lambda";
-
-    public static final String BNN_CUT_FUNCTION = "bnn.cut.function";
 
     /* Config module */
     public static final String MASK_YYYYMMDDHHMMSS = "yyyyMMddHHmmss";

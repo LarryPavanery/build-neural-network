@@ -185,4 +185,11 @@ public class ApplicationHelper {
 		+ Constants.DOT 
 		+ config.getProp().getProperty(Constants.BNN_EXTENSION);
     }
+
+    /**
+     * @return double between 0.0 and 1.0
+     */
+    public static double getRandomRoulette() {
+	return Math.random();
+    }
 }

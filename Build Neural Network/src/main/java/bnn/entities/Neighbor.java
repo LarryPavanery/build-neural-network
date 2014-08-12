@@ -4,8 +4,8 @@
 package bnn.entities;
 
 import bnn.config.ConfigProp;
-import bnn.constants.Constants;
 import bnn.functions.Function;
+import bnn.util.ApplicationHelper;
 
 /**
  * @author larrypavanery
@@ -30,8 +30,8 @@ public class Neighbor {
      */
     public boolean isNeighbor(Neuron neuron) {
 	if (!this.neuron.equals(neuron)) {
-	    if (Integer.parseInt(config.getProp().getProperty(Constants.BNN_ROULETTE))
-		    < Math.abs(Function.ConnectionProbability.calc(this.neuron, neuron))
+	    if (ApplicationHelper.getRandomRoulette()
+		    < Function.ConnectionProbability.calc(this.neuron, neuron)
 		    ) {
 		return true;
 	    }
