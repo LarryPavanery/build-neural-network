@@ -3,11 +3,16 @@
  */
 package bnn.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import bnn.util.ApplicationHelper;
+
 /**
  * @author larrypavanery
  * 
  */
-public class Neuron implements Comparable<Neuron> {
+public class Neuron {
 
     private String id;
     private int index;
@@ -15,47 +20,36 @@ public class Neuron implements Comparable<Neuron> {
      * E - Excitador; I - Inibidor
      */
     private String tipo;
-    private Weight weight;
     private Distance distanceX;
     private Distance distanceY;
     private Distance distanceZ;
     private Neighbor neighbor;
+    private List<Edge> edges;
 
     /**
      * @author larrypavanery
      * @param index
      * @param id
-     * @param weight
+     * @param tipo
      * @param distanceX
      * @param distanceY
      * @param distanceZ
      */
-    public Neuron(int index, String id, String tipo, Weight weight, Distance distanceX, Distance distanceY, Distance distanceZ) {
+    public Neuron(int index, String id, String tipo, Distance distanceX, Distance distanceY, Distance distanceZ) {
 	this.id = id;
 	this.index = index;
 	this.tipo = tipo;
-	this.weight = weight;
 	this.distanceX = distanceX;
 	this.distanceY = distanceY;
 	this.distanceZ = distanceZ;
 	this.neighbor = new Neighbor(this);
+	/* init list sizeless */
+	this.edges = new ArrayList<Edge>(0);
+
+	ApplicationHelper.initListEdge(this.edges, this.index);
     }
 
     public Neuron() {}
-
-    /**
-     * @return the weight
-     */
-    public final Weight getWeight() {
-	return weight;
-    }
-
-    /**
-     * @param weight the weight to set
-     */
-    public final void setWeight(Weight weight) {
-	this.weight = weight;
-    }
 
     /**
      * @return the id
@@ -99,64 +93,74 @@ public class Neuron implements Comparable<Neuron> {
 	this.index = index;
     }
 
-    public final boolean isLive() {
-	return getId() != null && getWeight() != null;
-    }
-
     /**
      * @return the distanceX
      */
     public final Distance getDistanceX() {
-        return distanceX;
+	return distanceX;
     }
 
     /**
      * @param distanceX the distanceX to set
      */
     public final void setDistanceX(Distance distanceX) {
-        this.distanceX = distanceX;
+	this.distanceX = distanceX;
     }
 
     /**
      * @return the distanceY
      */
     public final Distance getDistanceY() {
-        return distanceY;
+	return distanceY;
     }
 
     /**
      * @param distanceY the distanceY to set
      */
     public final void setDistanceY(Distance distanceY) {
-        this.distanceY = distanceY;
+	this.distanceY = distanceY;
     }
 
     /**
      * @return the distanceZ
      */
     public final Distance getDistanceZ() {
-        return distanceZ;
+	return distanceZ;
     }
 
     /**
      * @param distanceZ the distanceZ to set
      */
     public final void setDistanceZ(Distance distanceZ) {
-        this.distanceZ = distanceZ;
+	this.distanceZ = distanceZ;
     }
-    
+
     /**
      * @return the tipo
      */
     public final String getTipo() {
-        return tipo;
+	return tipo;
     }
 
     /**
      * @param tipo the tipo to set
      */
     public final void setTipo(String tipo) {
-        this.tipo = tipo;
+	this.tipo = tipo;
+    }
+
+    /**
+     * @return the edge
+     */
+    public List<Edge> getEdges() {
+	return edges;
+    }
+
+    /**
+     * @param edge the edge to set
+     */
+    public void setEdges(List<Edge> edge) {
+	this.edges = edge;
     }
 
     @Override
@@ -166,37 +170,12 @@ public class Neuron implements Comparable<Neuron> {
 	sb
 	.append("Index: ").append(getIndex())
 	.append(", Id: ").append(getId())
-	.append(", Weight: ").append(getWeight())
 	.append(", DistanceX: ").append(getDistanceX())
 	.append(", DistanceY: ").append(getDistanceY())
 	.append(", DistanceZ: ").append(getDistanceZ())
 	.append(".")
 	;
-	
+
 	return sb.toString();
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object obj) {
-	if (obj instanceof Neuron) {
-	    return (((Neuron) obj).getId()).equalsIgnoreCase(this.getId());
-	}
-	return false;
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
-     */
-    @Override
-    public int compareTo(Neuron o) {
-	if (o.getIndex() < this.getIndex()) {
-	    return 1;
-	} else if (o.getIndex() > this.getIndex()) {
-	    return -1;
-	}
-	return 0;
     }
 }

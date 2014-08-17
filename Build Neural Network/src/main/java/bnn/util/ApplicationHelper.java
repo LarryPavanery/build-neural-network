@@ -8,14 +8,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 import bnn.config.ConfigProp;
 import bnn.constants.Constants;
-import bnn.entities.Neuron;
+import bnn.entities.Edge;
 
 /**
  * @author larrypavanery
@@ -73,26 +73,32 @@ public class ApplicationHelper {
      * @return %.<bnn.decimal>f
      */
     public static String getFormatDecimal() {
-	return String.format("%%.%df", 
-		Integer.parseInt(config.getProp().getProperty(Constants.BNN_DECIMAL)));
+	return String.format("%%.%df%s", 
+		Integer.parseInt(config.getProp()
+			.getProperty(Constants.BNN_DECIMAL)),
+			Constants.SEPARATOR_LINE);
     }
 
     /**
-     * @return 0.<bnn.decimal*value>
+     * @return 0.<bnn.decimal*0>
      */
     public static String getNullOutput() {
 	StringBuilder sb = new StringBuilder();
 	sb.append("0.");
-	for (int i = 0; i < Integer.parseInt(config.getProp().getProperty(Constants.BNN_DECIMAL)); i++) {
+	for (int i = 0; 
+		i < Integer.parseInt(config.getProp()
+			.getProperty(Constants.BNN_DECIMAL)); 
+		i++) {
 	    sb.append("0");
 	}
-	return String.format(getFormatDecimal(), Double.parseDouble(sb.toString()));
+	return String.format(getFormatDecimal(), 
+		Double.parseDouble(sb.toString()));
     }
 
     /**
      * @return String
      */
-    public static String getHeader(String lessId) {
+    public static String getHeader() {
 	StringBuilder sb = new StringBuilder();
 	int size = getSizeNetwork();
 	int sizeForm = getNullOutput().length(); 
@@ -100,7 +106,8 @@ public class ApplicationHelper {
 	for (int i = 1; i <= size; i++) {
 	    sb.append(
 		    String.format("%s%d%s", 
-			    config.getProp().getProperty(Constants.BNN_COLUMN_NAME_FILE), 
+			    config.getProp()
+			    .getProperty(Constants.BNN_COLUMN_NAME_FILE), 
 			    i, 
 			    Constants.SEPARATOR_LINE));
 	    if (i != size) {
@@ -125,26 +132,6 @@ public class ApplicationHelper {
     }
 
     /**
-     * 
-     * @param network
-     * @return String
-     */
-    public static final String getLenghtSpaceLessId(Map<Neuron, List<Neuron>> network) {
-	StringBuilder sb = new StringBuilder();
-	int less = Integer.MAX_VALUE;
-	for (Neuron nr : network.keySet()) {
-	    if (less > nr.getId().length()) {
-		less = nr.getId().length();
-	    }
-	}
-
-	for (int i = 0; i < less; i++) {
-	    sb.append(Constants.SPACE);
-	}
-	return sb.toString();
-    }
-
-    /**
      * @param greaterId
      * @param id
      * @return String
@@ -163,11 +150,20 @@ public class ApplicationHelper {
     }
 
     /**
-     * @param lstNeuronsTmp
+     * @param lstEdge
      */
-    public static void initList(List<Neuron> lstNeuronsTmp) {
-	for (int i = 0; i < getSizeNetwork(); i++) {
-	    lstNeuronsTmp.add( new Neuron());
+    public static void initListEdge(final List<Edge> lstEdge, final int id) {
+	int i = 0;
+
+	try {
+	    lstEdge.addAll(new ArrayList<Edge>(ApplicationHelper.getSizeNetwork()));
+
+	    for (; i < getSizeNetwork(); i++) {
+		lstEdge.add( new Edge());
+	    }
+
+	} catch (OutOfMemoryError ome) {
+	    System.out.printf("Neuron id:[%d]. Edge index[%d]. Error:[%s].\n", id, i, ome.getMessage());
 	}
     }
 
@@ -175,9 +171,12 @@ public class ApplicationHelper {
      * @return int
      */
     public static int getSizeNetwork() {
-	return Integer.parseInt(config.getProp().getProperty(Constants.BNN_SIZE_NEURON_X))
-	* Integer.parseInt(config.getProp().getProperty(Constants.BNN_SIZE_NEURON_Y))
-	* Integer.parseInt(config.getProp().getProperty(Constants.BNN_SIZE_NEURON_Z));
+	return Integer.parseInt(config.getProp()
+		.getProperty(Constants.BNN_SIZE_NEURON_X))
+		* Integer.parseInt(config.getProp()
+			.getProperty(Constants.BNN_SIZE_NEURON_Y))
+			* Integer.parseInt(config.getProp()
+				.getProperty(Constants.BNN_SIZE_NEURON_Z));
     }
 
     /**
@@ -185,12 +184,15 @@ public class ApplicationHelper {
      */
     public static String getNameOutputDir() {
 
-	return config.getProp().getProperty(Constants.BNN_OUTPUT_DIR) 
+	return config.getProp()
+		.getProperty(Constants.BNN_OUTPUT_DIR) 
 		+ "/" 
-		+ config.getProp().getProperty(Constants.BNN_PREFIX_FILE_NAME)
+		+ config.getProp()
+		.getProperty(Constants.BNN_PREFIX_FILE_NAME)
 		+ ApplicationHelper.timeStamp() 
 		+ Constants.DOT 
-		+ config.getProp().getProperty(Constants.BNN_EXTENSION);
+		+ config.getProp()
+		.getProperty(Constants.BNN_EXTENSION);
     }
 
     /**
@@ -204,6 +206,7 @@ public class ApplicationHelper {
      * @return String 
      */
     public static String getTipo() {
-	return getRandomRoulette() <= 0.2D ? Constants.TIPO_I : Constants.TIPO_E;
+	return getRandomRoulette() 
+		<= 0.2D ? Constants.TIPO_I : Constants.TIPO_E;
     }
 }

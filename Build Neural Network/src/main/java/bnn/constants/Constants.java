@@ -48,4 +48,6 @@ public class Constants {
     public static final String TIPO_E = "E";
 
     public static final String TIPO_I = "I";
+    
+    public static final String WITH_THREAD = "bnn.process.thread";
 }

@@ -3,7 +3,6 @@
  */
 package bnn.entities;
 
-import bnn.config.ConfigProp;
 import bnn.functions.Function;
 import bnn.util.ApplicationHelper;
 
@@ -13,7 +12,6 @@ import bnn.util.ApplicationHelper;
  */
 public class Neighbor {
 
-    private static ConfigProp config = ConfigProp.getInstance();
     private Neuron neuron;
     
     /**
@@ -31,7 +29,8 @@ public class Neighbor {
     public boolean isNeighbor(Neuron neuron) {
 	if (!this.neuron.equals(neuron)) {
 	    if (ApplicationHelper.getRandomRoulette()
-		    < Function.ConnectionProbability.calc(this.neuron, neuron)
+		    < Function.ConnectionProbability
+		    .calc(this.neuron, neuron)
 		    ) {
 		return true;
 	    }
@@ -53,20 +52,6 @@ public class Neighbor {
         this.neuron = neuron;
     }
 
-    /**
-     * @return the config
-     */
-    public static final ConfigProp getConfig() {
-        return config;
-    }
-
-    /**
-     * @param config the config to set
-     */
-    public static final void setConfig(ConfigProp config) {
-        Neighbor.config = config;
-    }
-    
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
