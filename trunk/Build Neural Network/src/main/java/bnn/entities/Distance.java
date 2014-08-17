@@ -36,22 +36,6 @@ public class Distance {
 	this.distance = distance.getValue();
     }
     
-    public final boolean lessThan(Distance distance) {
-	return getValue() < distance.getValue();
-    }
-    
-    public final boolean greaterThan(Distance distance) {
-	return getValue() > distance.getValue();
-    }
-    
-    public final boolean lessThanEquals(Distance distance) {
-	return getValue() <= distance.getValue();
-    }
-    
-    public final boolean greaterThanEquals(Distance distance) {
-	return getValue() >= distance.getValue();
-    }
-    
     @Override
     public String toString() {
 	return String.valueOf(getValue());
