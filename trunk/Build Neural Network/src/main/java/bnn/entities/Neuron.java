@@ -24,7 +24,7 @@ public class Neuron {
     private Distance distanceY;
     private Distance distanceZ;
     private Neighbor neighbor;
-    private List<Edge> edges;
+    private List<Connection> connections;
 
     /**
      * @author larrypavanery
@@ -44,9 +44,9 @@ public class Neuron {
 	this.distanceZ = distanceZ;
 	this.neighbor = new Neighbor(this);
 	/* init list sizeless */
-	this.edges = new ArrayList<Edge>(0);
+	this.connections = new ArrayList<Connection>(0);
 
-	ApplicationHelper.initListEdge(this.edges, this.index);
+	ApplicationHelper.initListConnection(this.connections, this.index);
     }
 
     public Neuron() {}
@@ -150,17 +150,17 @@ public class Neuron {
     }
 
     /**
-     * @return the edge
+     * @return the connections
      */
-    public List<Edge> getEdges() {
-	return edges;
+    public List<Connection> getConnections() {
+	return connections;
     }
 
     /**
-     * @param edge the edge to set
+     * @param connections the connections to set
      */
-    public void setEdges(List<Edge> edge) {
-	this.edges = edge;
+    public void setConnections(List<Connection> connections) {
+	this.connections = connections;
     }
 
     @Override
