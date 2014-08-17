@@ -11,8 +11,8 @@ import java.util.List;
 
 import bnn.config.ConfigProp;
 import bnn.constants.Constants;
+import bnn.entities.Connection;
 import bnn.entities.Distance;
-import bnn.entities.Edge;
 import bnn.entities.Neuron;
 import bnn.entities.Weight;
 import bnn.util.ApplicationHelper;
@@ -48,7 +48,7 @@ public class BNN {
 		    public void run() {
 			for (Neuron subNeuron : network) {
 			    if (neuron.getNeighbor().isNeighbor(subNeuron)) {
-				new Edge(
+				new Connection(
 					neuron, 
 					subNeuron, 
 					new Weight(ApplicationHelper.getRandomWeight())
@@ -61,7 +61,7 @@ public class BNN {
 	    } else {
 		for (Neuron subNeuron : network) {
 		    if (neuron.getNeighbor().isNeighbor(subNeuron)) {
-			new Edge(
+			new Connection(
 				neuron, 
 				subNeuron, 
 				new Weight(ApplicationHelper.getRandomWeight())
@@ -130,11 +130,11 @@ public class BNN {
 	    pw.write(ApplicationHelper.getHeader());
 
 	    for (Neuron neuron : network) {
-		for (Edge edge : neuron.getEdges()) {
-		    if (edge.isActive()) {
+		for (Connection connection : neuron.getConnections()) {
+		    if (connection.isActive()) {
 			sb.append(
 				String.format(ApplicationHelper
-					.getFormatDecimal(), edge.getWeight().getValue())
+					.getFormatDecimal(), connection.getWeight().getValue())
 				);
 		    } else {
 			sb.append(ApplicationHelper.getNullOutput());
@@ -176,11 +176,11 @@ public class BNN {
 	sb.append(ApplicationHelper.getHeader());
 
 	for (Neuron neuron : network) {
-	    for (Edge edge : neuron.getEdges()) {
-		if (edge.isActive()) {
+	    for (Connection connection : neuron.getConnections()) {
+		if (connection.isActive()) {
 		    sb.append(
 			    String.format(ApplicationHelper
-				    .getFormatDecimal(), edge.getWeight().getValue())
+				    .getFormatDecimal(), connection.getWeight().getValue())
 			    );
 		} else {
 		    sb.append(ApplicationHelper.getNullOutput());

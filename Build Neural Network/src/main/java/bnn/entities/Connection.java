@@ -8,7 +8,7 @@ package bnn.entities;
  * @author larrypavanery
  *
  */
-public class Edge {
+public class Connection {
     
     private Neuron neuronFrom;
     private Neuron neuronTo;
@@ -18,19 +18,19 @@ public class Edge {
      * @param neuronFrom
      * @param neuronTo
      */
-    public Edge(Neuron neuronFrom, Neuron neuronTo, Weight weight) {
+    public Connection(Neuron neuronFrom, Neuron neuronTo, Weight weight) {
 	this.neuronFrom = neuronFrom;
 	this.neuronTo = neuronTo;
 	this.weight = weight;
 	
-	neuronFrom.getEdges()
+	neuronFrom.getConnections()
 		.set(
 			neuronTo.getIndex(), 
 			this
 			);
     }
     
-    public Edge() {
+    public Connection() {
     }
 
     /**

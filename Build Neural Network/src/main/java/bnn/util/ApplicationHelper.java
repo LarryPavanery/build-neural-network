@@ -1,6 +1,3 @@
-/**
- * 
- */
 package bnn.util;
 
 import java.io.FileInputStream;
@@ -15,7 +12,7 @@ import java.util.Properties;
 
 import bnn.config.ConfigProp;
 import bnn.constants.Constants;
-import bnn.entities.Edge;
+import bnn.entities.Connection;
 
 /**
  * @author larrypavanery
@@ -150,20 +147,20 @@ public class ApplicationHelper {
     }
 
     /**
-     * @param lstEdge
+     * @param connections
      */
-    public static void initListEdge(final List<Edge> lstEdge, final int id) {
+    public static void initListConnection(final List<Connection> connections, final int id) {
 	int i = 0;
 
 	try {
-	    lstEdge.addAll(new ArrayList<Edge>(ApplicationHelper.getSizeNetwork()));
+	    connections.addAll(new ArrayList<Connection>(ApplicationHelper.getSizeNetwork()));
 
 	    for (; i < getSizeNetwork(); i++) {
-		lstEdge.add( new Edge());
+		connections.add(new Connection());
 	    }
 
 	} catch (OutOfMemoryError ome) {
-	    System.out.printf("Neuron id:[%d]. Edge index[%d]. Error:[%s].\n", id, i, ome.getMessage());
+	    System.out.printf("Neuron id:[%d]. Connection index[%d]. Error:[%s].\n", id, i, ome.getMessage());
 	}
     }
 

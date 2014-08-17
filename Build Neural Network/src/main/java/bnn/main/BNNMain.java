@@ -1,12 +1,6 @@
-/**
- * 
- */
 package bnn.main;
 
 import bnn.algorithm.BNN;
-
-
-
 
 /**
  * @author larrypavanery
