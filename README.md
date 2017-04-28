@@ -1,1 +1,1 @@
-# Create a neural network and save to file.
+# Create a neural network and save to file
